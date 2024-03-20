@@ -1,0 +1,23 @@
+
+
+/************************************************************/
+/************************ Principal *******************/
+/************************************************************/
+
+ScoringMDP*2023DEV
+
+
+{
+  "Empresa": "1",
+  "Canal": "OUTSYSTEMS",
+  "Usuario": "BA010006a6",
+  "Ip": "10.1.24.80",
+  "Referencia": "MVPF",
+  "Id":"1719093872",
+  "TipoIdentificacion": "CED"
+}
+
+
+
+92f6fd4329ce0cc13ab02c9082c7e5ce57093d8189dec617a376355ca61461e2zhC7xoSGISKgZH9RBzlM1dbIvn0goXg6Dp5vspjaqeYlIIg1KTZd+EMIZ+jkAeft1CtK+wdJlFEYEU8xFXkGIsfH/bP863GGrYyCkXn7uYjPgRxhwxjM0nt0PZZ1oEbqTpiIXHzaDtuVgNpzyxBJ/PbljiV8sUt2XY4hSgIfoy7htFvPMUa3fL5pfY6C33NtWxSmcavYD8S257MlhwsaprLNu5sVP+mF0PA6mHK2qVU=
+
