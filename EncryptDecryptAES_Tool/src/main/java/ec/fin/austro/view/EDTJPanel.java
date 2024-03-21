@@ -4,6 +4,8 @@
  */
 package ec.fin.austro.view;
 
+import ec.fin.austro.service.EncryptDecryptAction;
+import ec.fin.austro.model.Propiedad;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
@@ -53,6 +55,8 @@ public class EDTJPanel extends javax.swing.JPanel {
         txtClave = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        rbtEncode64 = new javax.swing.JRadioButton();
+        rbtDecode64 = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,9 +69,15 @@ public class EDTJPanel extends javax.swing.JPanel {
         txtRespuesta = new javax.swing.JTextArea();
         btnCopia = new javax.swing.JButton();
 
+        setBackground(java.awt.SystemColor.control);
+        setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+
+        jPanel1.setBackground(java.awt.SystemColor.control);
+
         jLabelTitle.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         jLabelTitle.setText("ENCRIPTA - DESENCRIPTA (AES256)");
 
+        jPanel2.setBackground(java.awt.SystemColor.control);
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("Proceso:");
@@ -111,6 +121,20 @@ public class EDTJPanel extends javax.swing.JPanel {
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        rbtEncode64.setText("Encode 64");
+        rbtEncode64.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbtEncode64StateChanged(evt);
+            }
+        });
+
+        rbtDecode64.setText("Decode 64");
+        rbtDecode64.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbtDecode64StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,7 +153,11 @@ public class EDTJPanel extends javax.swing.JPanel {
                         .addComponent(rbtEncrypt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtDecrypt)
-                        .addGap(42, 42, 42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtEncode64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtDecode64)
+                        .addGap(36, 36, 36)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,33 +169,35 @@ public class EDTJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(txtSep, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(rbtEncrypt)
-                        .addComponent(rbtDecrypt))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(txtSep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(rbtEncrypt)
+                    .addComponent(rbtDecrypt)
+                    .addComponent(rbtEncode64)
+                    .addComponent(rbtDecode64)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel7)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
+        jPanel3.setBackground(java.awt.SystemColor.control);
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jPanel4.setBackground(java.awt.SystemColor.control);
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("TEXTO"));
 
         txtValor.setColumns(20);
@@ -182,7 +212,7 @@ public class EDTJPanel extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
         );
 
         btnLimpiar.setText("LIMPIAR");
@@ -204,31 +234,28 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnProcesa)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpiar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnProcesa)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnLimpiar)
                     .addComponent(btnProcesa))
                 .addContainerGap())
         );
 
+        jPanel5.setBackground(java.awt.SystemColor.control);
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jPanel6.setBackground(java.awt.SystemColor.control);
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("RESULTADO"));
 
         txtRespuesta.setColumns(20);
@@ -258,7 +285,6 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,13 +293,10 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(btnCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -330,12 +353,46 @@ public class EDTJPanel extends javax.swing.JPanel {
     private void rbtEncryptStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtEncryptStateChanged
         if (this.rbtEncrypt.isSelected()) {
             this.rbtDecrypt.setSelected(false);
+            this.rbtEncode64.setSelected(false);
+            this.rbtDecode64.setSelected(false);
+
+            this.txtClave.setEnabled(true);
+            this.cbTipo.setEnabled(true);
+            this.txtSep.setEnabled(true);
+
+            if (this.cbTipo.getSelectedIndex() == 2) {
+                this.txtSep.setEnabled(true);
+            } else {
+                this.txtSep.setEnabled(false);
+            }
+            if (this.cbTipo.getSelectedIndex() == 1) {
+                this.txtClave.setEnabled(false);
+            } else {
+                this.txtClave.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_rbtEncryptStateChanged
 
     private void rbtDecryptStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtDecryptStateChanged
         if (this.rbtDecrypt.isSelected()) {
             this.rbtEncrypt.setSelected(false);
+            this.rbtEncode64.setSelected(false);
+            this.rbtDecode64.setSelected(false);
+
+            this.txtClave.setEnabled(true);
+            this.cbTipo.setEnabled(true);
+            this.txtSep.setEnabled(true);
+
+            if (this.cbTipo.getSelectedIndex() == 2) {
+                this.txtSep.setEnabled(true);
+            } else {
+                this.txtSep.setEnabled(false);
+            }
+            if (this.cbTipo.getSelectedIndex() == 1) {
+                this.txtClave.setEnabled(false);
+            } else {
+                this.txtClave.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_rbtDecryptStateChanged
 
@@ -362,69 +419,99 @@ public class EDTJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnProcesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesaActionPerformed
-        List<EncryptDecryptAction.Propiedad> listOriginal, re;
         EncryptDecryptAction edu = new EncryptDecryptAction();
-        String res = "";
-        String clave = this.txtClave.getText();
         String valor = this.txtValor.getText();
-        if (this.txtClave.isEnabled() && (clave == null || clave.equals(""))) {
-            JOptionPane.showMessageDialog(this, "Clave de Encriptacion vac");
-            return;
-        }
         if (valor == null) {
             JOptionPane.showMessageDialog(this, "Texto de Entrada vac");
             return;
         }
-        if (this.txtSep.isEnabled() && (this.txtSep.getText().trim() == null || this.txtSep.getText().trim().equals(""))) {
-            this.txtSep.setFocusable(true);
-            JOptionPane.showMessageDialog(this, "Separador de properties vac");
-            return;
+        if (this.rbtEncrypt.isSelected() || this.rbtDecrypt.isSelected()) {
+            List<Propiedad> listOriginal, re;
+            String res = "";
+            String clave = this.txtClave.getText();
+
+            if (this.txtClave.isEnabled() && (clave == null || clave.equals(""))) {
+                JOptionPane.showMessageDialog(this, "Clave de Encriptacion vac");
+                return;
+            }
+            if (this.txtSep.isEnabled() && (this.txtSep.getText().trim() == null || this.txtSep.getText().trim().equals(""))) {
+                this.txtSep.setFocusable(true);
+                JOptionPane.showMessageDialog(this, "Separador de properties vac");
+                return;
+            }
+            int item = this.cbTipo.getSelectedIndex();
+            switch (item) {
+                case 0:
+                    if (this.rbtEncrypt.isSelected()) {
+                        res = edu.encripta(clave, valor);
+                    } else {
+                        res = edu.desencripta(clave, valor);
+                    }
+                    this.txtRespuesta.setText(res);
+                    break;
+                case 1:
+                    if (this.rbtEncrypt.isSelected()) {
+                        res = edu.encripta(valor);
+                    } else {
+                        res = edu.desencripta(valor);
+                    }
+                    this.txtRespuesta.setText(res);
+                    break;
+                case 2:
+                    listOriginal = edu.listarTexto(valor, this.txtSep.getText().trim());
+                    re = null;
+                    if (this.rbtEncrypt.isSelected()) {
+                        re = edu.encriptaLista(clave, listOriginal);
+                    } else {
+                        re = edu.desencriptaLista(clave, listOriginal);
+                    }
+                    escribeResultado(re);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            if (!res.equals("")
+                    && res.contains("*Error")) {
+                this.txtRespuesta.setText("");
+                JOptionPane.showMessageDialog(this, res);
+            }
+        } else if (this.rbtEncode64.isSelected()) {
+            this.txtRespuesta.setText(edu.encode64(valor));
+        } else if (this.rbtDecode64.isSelected()) {
+            this.txtRespuesta.setText(edu.decode64(valor));
         }
-        int item = this.cbTipo.getSelectedIndex();
-        switch (item) {
-            case 0:
-                if (this.rbtEncrypt.isSelected()) {
-                    res = edu.encripta(clave, valor);
-                } else {
-                    res = edu.desencripta(clave, valor);
-                }
-                this.txtRespuesta.setText(res);
-                break;
-            case 1:
-                if (this.rbtEncrypt.isSelected()) {
-                    res = edu.encripta(valor);
-                } else {
-                    res = edu.desencripta(valor);
-                }
-                this.txtRespuesta.setText(res);
-                break;
-            case 2:
-                listOriginal = edu.listarTexto(valor, this.txtSep.getText().trim());
-                re = null;
-                if (this.rbtEncrypt.isSelected()) {
-                    re = edu.encriptaLista(clave, listOriginal);
-                } else {
-                    re = edu.desencriptaLista(clave, listOriginal);
-                }
-                escribeResultado(re);
-                break;
-            default:
-                throw new AssertionError();
-        }
-        if (!res.equals("")
-                && res.contains("*Error")) {
-            this.txtRespuesta.setText("");
-            JOptionPane.showMessageDialog(this, res);
-        }
+
     }//GEN-LAST:event_btnProcesaActionPerformed
 
     private void btnCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiaActionPerformed
         copyClipboard(this.txtRespuesta.getText());
     }//GEN-LAST:event_btnCopiaActionPerformed
 
-    public void escribeResultado(List<EncryptDecryptAction.Propiedad> lista) {
+    private void rbtEncode64StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtEncode64StateChanged
+        if (this.rbtEncode64.isSelected()) {
+            this.rbtEncrypt.setSelected(false);
+            this.rbtDecrypt.setSelected(false);
+            this.rbtDecode64.setSelected(false);
+            this.txtClave.setEnabled(false);
+            this.cbTipo.setEnabled(false);
+            this.txtSep.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbtEncode64StateChanged
+
+    private void rbtDecode64StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtDecode64StateChanged
+        if (this.rbtDecode64.isSelected()) {
+            this.rbtEncrypt.setSelected(false);
+            this.rbtDecrypt.setSelected(false);
+            this.rbtEncode64.setSelected(false);
+            this.txtClave.setEnabled(false);
+            this.cbTipo.setEnabled(false);
+            this.txtSep.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbtDecode64StateChanged
+
+    public void escribeResultado(List<Propiedad> lista) {
         this.txtRespuesta.setText("");
-        for (EncryptDecryptAction.Propiedad propiedad : lista) {
+        for (Propiedad propiedad : lista) {
             this.txtRespuesta.append(propiedad.toString() + "\n");
         }
     }
@@ -455,7 +542,9 @@ public class EDTJPanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JRadioButton rbtDecode64;
     private javax.swing.JRadioButton rbtDecrypt;
+    private javax.swing.JRadioButton rbtEncode64;
     private javax.swing.JRadioButton rbtEncrypt;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextArea txtRespuesta;

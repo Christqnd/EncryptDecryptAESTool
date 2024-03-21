@@ -4,20 +4,26 @@
  */
 package ec.fin.austro.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ba0100068f
  */
 public class MainPrincipal extends javax.swing.JFrame {
 
-    private Integer index = 0;
+    private Integer idTab = 1;
 
     /**
      * Creates new form MainPrincipal
      */
     public MainPrincipal() {
         initComponents();
-        jTabbedPaneDinamico.add(new EDTJPanel(index + 1), "    " + (index + 1) + "    ", index);
+        // Assuming "icon.png" is your icon image file in the project root directory
+        ImageIcon icon = new ImageIcon(getClass().getResource("/header.png"));
+        setIconImage(icon.getImage());
+
+        jTabbedPaneDinamico.add(new EDTJPanel(idTab), " Nuevo " + idTab + "    ", 0);
     }
 
     /**
@@ -30,74 +36,84 @@ public class MainPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPaneDinamico = new javax.swing.JTabbedPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jPanel1 = new javax.swing.JPanel();
+        jToolBar2 = new javax.swing.JToolBar();
+        jButtonAgregar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPaneDinamico.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPaneDinamico.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        jTabbedPaneDinamico.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTabbedPaneDinamico.setOpaque(true);
 
-        jMenuBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToolBar2.setBackground(new java.awt.Color(204, 204, 204));
+        jToolBar2.setRollover(true);
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu1.setText("  [ + ]  ");
-        jMenu1.setIconTextGap(10);
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
+        jButtonAgregar.setText("Agregar");
+        jButtonAgregar.setFocusable(false);
+        jButtonAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButtonAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jButtonAgregarMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(jMenu1);
+        jToolBar2.add(jButtonAgregar);
 
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu2.setText("  [ - ]  ");
-        jMenu2.setIconTextGap(10);
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setFocusable(false);
+        jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButtonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                jButtonEliminarMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        jToolBar2.add(jButtonEliminar);
 
-        setJMenuBar(jMenuBar1);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    private void jButtonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAgregarMouseClicked
+        idTab++;
+        jTabbedPaneDinamico.add(new EDTJPanel(idTab), " Nuevo " + idTab + "    ", jTabbedPaneDinamico.getTabCount());
+    }//GEN-LAST:event_jButtonAgregarMouseClicked
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        index++;
-        jTabbedPaneDinamico.add(new EDTJPanel(index + 1), "    " + (index + 1) + "    ", index);
-        jTabbedPaneDinamico.setSelectedIndex(index);
-    }//GEN-LAST:event_jMenu1MouseClicked
+    private void jButtonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEliminarMouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        if (index > 0) {
-            jTabbedPaneDinamico.remove(index);
-            index--;
-            jTabbedPaneDinamico.setSelectedIndex(index);
+        if (jTabbedPaneDinamico.getTabCount() > 1) {
+            jTabbedPaneDinamico.remove(jTabbedPaneDinamico.getSelectedIndex());
         }
-    }//GEN-LAST:event_jMenu2MouseClicked
+    }//GEN-LAST:event_jButtonEliminarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -135,9 +151,10 @@ public class MainPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPaneDinamico;
+    private javax.swing.JToolBar jToolBar2;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,7 +24,10 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>ec.fin.austro.view.MainPrincipal</exec.mainClass>
     </properties>
-      <build>
+
+
+    <build>
+
         <plugins>
             <plugin>
                 <!-- Plugin para especificar la verside la JVM con la que compilar -->
@@ -48,6 +51,15 @@
                             <mainClass>ec.fin.austro.view.MainPrincipal</mainClass>
                         </manifest>
                     </archive>
+                    <resources>
+                        <resource>
+                            <directory>src/main/java/ec/fin/austro/images</directory>
+                            <includes>
+                                <include>**/*.png</include>
+                                <!-- Aquí puedes incluir otros formatos de imagen que desees -->
+                            </includes>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
             <plugin>
