@@ -15,17 +15,17 @@ import javax.swing.JOptionPane;
  *
  * @author lenovo
  */
-public class EDTJPanel extends javax.swing.JPanel {
+public class TabcustomEDJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EDTJPanel
      */
-    public EDTJPanel(int index) {
+    public TabcustomEDJPanel(int index) {
         initComponents();
         jLabelTitle.setText(jLabelTitle.getText() + " - " + index + " ");
     }
 
-    public EDTJPanel() {
+    public TabcustomEDJPanel() {
         initComponents();
         jLabelTitle.setText(jLabelTitle.getText() + " - 1 ");
 
@@ -42,21 +42,21 @@ public class EDTJPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         rbtEncrypt = new javax.swing.JRadioButton();
         rbtDecrypt = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelTipo = new javax.swing.JLabel();
         cbTipo = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelSeparador = new javax.swing.JLabel();
         txtSep = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtClave = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         rbtEncode64 = new javax.swing.JRadioButton();
         rbtDecode64 = new javax.swing.JRadioButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,7 +67,6 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtRespuesta = new javax.swing.JTextArea();
-        btnCopia = new javax.swing.JButton();
 
         setBackground(java.awt.SystemColor.control);
         setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -97,7 +96,7 @@ public class EDTJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Tipo:");
+        jLabelTipo.setText("Tipo:");
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Clave", "Propertie" }));
         cbTipo.addItemListener(new java.awt.event.ItemListener() {
@@ -111,15 +110,15 @@ public class EDTJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Separador:");
+        jLabelSeparador.setText("Separador:");
 
         txtSep.setEnabled(false);
 
         jLabel7.setText("CLAVE:");
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         rbtEncode64.setText("Encode 64");
         rbtEncode64.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -158,18 +157,18 @@ public class EDTJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtDecode64)
                         .addGap(36, 36, 36)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
+                        .addComponent(jLabelSeparador)
                         .addGap(18, 18, 18)
                         .addComponent(txtSep, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,17 +181,21 @@ public class EDTJPanel extends javax.swing.JPanel {
                     .addComponent(rbtDecrypt)
                     .addComponent(rbtEncode64)
                     .addComponent(rbtDecode64)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTipo)
                     .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSeparador))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel7)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
+
+        jSplitPane1.setDividerSize(10);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(0.5);
 
         jPanel3.setBackground(java.awt.SystemColor.control);
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -208,11 +211,11 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
         );
 
         btnLimpiar.setText("LIMPIAR");
@@ -244,13 +247,15 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnLimpiar)
                     .addComponent(btnProcesa))
-                .addContainerGap())
+                .addGap(4, 4, 4))
         );
+
+        jSplitPane1.setLeftComponent(jPanel3);
 
         jPanel5.setBackground(java.awt.SystemColor.control);
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -266,19 +271,12 @@ public class EDTJPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
         );
-
-        btnCopia.setText("Copiar");
-        btnCopia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCopiaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -286,18 +284,14 @@ public class EDTJPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(btnCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jSplitPane1.setRightComponent(jPanel5);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,15 +301,11 @@ public class EDTJPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabelTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSplitPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -325,28 +315,20 @@ public class EDTJPanel extends javax.swing.JPanel {
                 .addComponent(jLabelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -357,8 +339,14 @@ public class EDTJPanel extends javax.swing.JPanel {
             this.rbtDecode64.setSelected(false);
 
             this.txtClave.setEnabled(true);
+            this.jLabelTipo.setVisible(true);
             this.cbTipo.setEnabled(true);
+            this.cbTipo.setVisible(true);
+            this.jLabelSeparador.setVisible(true);
             this.txtSep.setEnabled(true);
+            this.txtSep.setVisible(true);
+            this.jSeparator1.setVisible(true);
+            this.jSeparator2.setVisible(true);
 
             if (this.cbTipo.getSelectedIndex() == 2) {
                 this.txtSep.setEnabled(true);
@@ -380,8 +368,14 @@ public class EDTJPanel extends javax.swing.JPanel {
             this.rbtDecode64.setSelected(false);
 
             this.txtClave.setEnabled(true);
+            this.jLabelTipo.setVisible(true);
             this.cbTipo.setEnabled(true);
+            this.cbTipo.setVisible(true);
+            this.jLabelSeparador.setVisible(true);
             this.txtSep.setEnabled(true);
+            this.txtSep.setVisible(true);
+            this.jSeparator1.setVisible(true);
+            this.jSeparator2.setVisible(true);
 
             if (this.cbTipo.getSelectedIndex() == 2) {
                 this.txtSep.setEnabled(true);
@@ -483,18 +477,21 @@ public class EDTJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnProcesaActionPerformed
 
-    private void btnCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiaActionPerformed
-        copyClipboard(this.txtRespuesta.getText());
-    }//GEN-LAST:event_btnCopiaActionPerformed
-
     private void rbtEncode64StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtEncode64StateChanged
         if (this.rbtEncode64.isSelected()) {
             this.rbtEncrypt.setSelected(false);
             this.rbtDecrypt.setSelected(false);
             this.rbtDecode64.setSelected(false);
             this.txtClave.setEnabled(false);
+            
+            this.jLabelTipo.setVisible(false);
             this.cbTipo.setEnabled(false);
+            this.cbTipo.setVisible(false);
+            this.jLabelSeparador.setVisible(false);
             this.txtSep.setEnabled(false);
+            this.txtSep.setVisible(false);
+            this.jSeparator1.setVisible(false);
+            this.jSeparator2.setVisible(false);
         }
     }//GEN-LAST:event_rbtEncode64StateChanged
 
@@ -504,8 +501,15 @@ public class EDTJPanel extends javax.swing.JPanel {
             this.rbtDecrypt.setSelected(false);
             this.rbtEncode64.setSelected(false);
             this.txtClave.setEnabled(false);
+            
+            this.jLabelTipo.setVisible(false);
             this.cbTipo.setEnabled(false);
+            this.cbTipo.setVisible(false);
+            this.jLabelSeparador.setVisible(false);
             this.txtSep.setEnabled(false);
+            this.txtSep.setVisible(false);
+            this.jSeparator1.setVisible(false);
+            this.jSeparator2.setVisible(false);
         }
     }//GEN-LAST:event_rbtDecode64StateChanged
 
@@ -522,14 +526,13 @@ public class EDTJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCopia;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnProcesa;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelSeparador;
+    private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -541,7 +544,7 @@ public class EDTJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JRadioButton rbtDecode64;
     private javax.swing.JRadioButton rbtDecrypt;
     private javax.swing.JRadioButton rbtEncode64;

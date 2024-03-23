@@ -4,27 +4,84 @@
  */
 package ec.fin.austro.view;
 
+import ec.fin.austro.view.component.DemoCustomTab1;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author ba0100068f
  */
-public class MainPrincipal extends javax.swing.JFrame {
+public class MainPrincipal1 extends javax.swing.JFrame {
 
     private Integer idTab = 1;
+
+    public JTabbedPane getjTabbedPaneDinamico() {
+        return jTabbedPaneDinamico;
+    }
+
+    int numTabs;
 
     /**
      * Creates new form MainPrincipal
      */
-    public MainPrincipal() {
+    public MainPrincipal1() {
+        setLocationRelativeTo(null);
         initComponents();
         // Assuming "icon.png" is your icon image file in the project root directory
         ImageIcon icon = new ImageIcon(getClass().getResource("/header.png"));
         setIconImage(icon.getImage());
-        jTabbedPaneDinamico.add(new TabcustomEDJPanel(idTab), " Tab " + idTab + "    ", 0);
-        setLocationRelativeTo(null);
+        jTabbedPaneDinamico.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        jTabbedPaneDinamico.add(new TabcustomEDJPanel(idTab), " Nuevo " + idTab + "    ", 0);
+        /* add first tab */
+        //jTabbedPaneDinamico.add(createJPanel(), "Tab " + String.valueOf(numTabs), numTabs++);
+        jTabbedPaneDinamico.setTabComponentAt(0, new DemoCustomTab1(this));
+        /* add tab to add new tab when click */
+        jTabbedPaneDinamico.add(new JPanel(), "+", 1);
+        jTabbedPaneDinamico.addChangeListener(changeListener);
+        numTabs=2;
+        idTab++;
+    }
+
+    ChangeListener changeListener = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            addNewTab();
         }
+    };
+
+    private void addNewTab() {
+        int index = numTabs - 1;
+        int selin=jTabbedPaneDinamico.getSelectedIndex();
+        if (jTabbedPaneDinamico.getSelectedIndex() == index) {
+            /* if click new tab add new tab */
+            jTabbedPaneDinamico.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            jTabbedPaneDinamico.add(new TabcustomEDJPanel(idTab), "Nuevo " + idTab, index);
+            /* set tab is custom tab */
+            jTabbedPaneDinamico.setTabComponentAt(index, new DemoCustomTab1(this));
+            jTabbedPaneDinamico.removeChangeListener(changeListener);
+            jTabbedPaneDinamico.setSelectedIndex(index);
+            jTabbedPaneDinamico.addChangeListener(changeListener);
+            numTabs++;
+            idTab++;
+        }
+    }
+
+    public void removeTab(int index) {
+        jTabbedPaneDinamico.remove(index);
+        numTabs--;
+        if (index == numTabs - 1 && index > 0) {
+            jTabbedPaneDinamico.setSelectedIndex(numTabs - 2);
+        } else {
+            jTabbedPaneDinamico.setSelectedIndex(index);
+        }
+        if (numTabs == 1) {
+            addNewTab();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +106,6 @@ public class MainPrincipal extends javax.swing.JFrame {
 
         jToolBar2.setBackground(new java.awt.Color(204, 204, 204));
         jToolBar2.setRollover(true);
-        jToolBar2.setEnabled(false);
 
         jButtonAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
@@ -106,8 +162,7 @@ public class MainPrincipal extends javax.swing.JFrame {
 
     private void jButtonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAgregarMouseClicked
         idTab++;
-        jTabbedPaneDinamico.add(new TabcustomEDJPanel(idTab), " Tab " + idTab + "    ", jTabbedPaneDinamico.getTabCount());
-        jTabbedPaneDinamico.setSelectedIndex(jTabbedPaneDinamico.getTabCount()-1);
+        jTabbedPaneDinamico.add(new TabcustomEDJPanel(idTab), " Nuevo " + idTab + "    ", jTabbedPaneDinamico.getTabCount());
     }//GEN-LAST:event_jButtonAgregarMouseClicked
 
     private void jButtonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEliminarMouseClicked
@@ -134,20 +189,23 @@ public class MainPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPrincipal1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPrincipal1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPrincipal1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPrincipal1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPrincipal().setVisible(true);
+                new MainPrincipal1().setVisible(true);
             }
         });
     }
