@@ -47,9 +47,14 @@ public class MainPrincipal extends javax.swing.JFrame {
         jTabbedPaneDinamico.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTabbedPaneDinamico.setOpaque(true);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(1055, 34));
+
         jToolBar2.setBackground(new java.awt.Color(204, 204, 204));
         jToolBar2.setRollover(true);
         jToolBar2.setEnabled(false);
+        jToolBar2.setMaximumSize(new java.awt.Dimension(195, 34));
+        jToolBar2.setMinimumSize(new java.awt.Dimension(195, 34));
+        jToolBar2.setPreferredSize(new java.awt.Dimension(195, 34));
 
         jButtonAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
@@ -97,8 +102,8 @@ public class MainPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPaneDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
         );
 
         pack();

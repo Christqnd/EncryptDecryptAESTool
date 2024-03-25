@@ -4,12 +4,32 @@
  */
 package ec.fin.austro.view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import ec.fin.austro.service.EncryptDecryptAction;
 import ec.fin.austro.model.Propiedad;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -59,14 +79,20 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jButtonWordWrapTexto = new javax.swing.JButton();
+        jComboBoxTexto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtValor = new javax.swing.JTextArea();
+        txtTexto = new javax.swing.JTextArea();
         btnLimpiar = new javax.swing.JButton();
         btnProcesa = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jButtonWordWrapResultado = new javax.swing.JButton();
+        jComboBoxResultado = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtRespuesta = new javax.swing.JTextArea();
+        txtResultado = new javax.swing.JTextArea();
 
         setBackground(java.awt.SystemColor.control);
         setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -168,7 +194,7 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
                         .addComponent(jLabelSeparador)
                         .addGap(18, 18, 18)
                         .addComponent(txtSep, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,21 +227,68 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel4.setBackground(java.awt.SystemColor.control);
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("TEXTO"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TEXTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 1, 12))); // NOI18N
 
-        txtValor.setColumns(20);
-        txtValor.setRows(5);
-        jScrollPane1.setViewportView(txtValor);
+        jPanel7.setBackground(java.awt.SystemColor.control);
+        jPanel7.setPreferredSize(new java.awt.Dimension(103, 25));
+
+        jButtonWordWrapTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/word_wrap_20.png"))); // NOI18N
+        jButtonWordWrapTexto.setToolTipText("Ajustar Linea");
+        jButtonWordWrapTexto.setBorder(null);
+        jButtonWordWrapTexto.setFocusable(false);
+        jButtonWordWrapTexto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonWordWrapTexto.setMaximumSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapTexto.setMinimumSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapTexto.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWordWrapTextoActionPerformed(evt);
+            }
+        });
+
+        jComboBoxTexto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "text", "json", "xml" }));
+        jComboBoxTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTextoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jButtonWordWrapTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonWordWrapTexto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTexto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        txtTexto.setColumns(20);
+        txtTexto.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jScrollPane1.setViewportView(txtTexto);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
         );
 
         btnLimpiar.setText("LIMPIAR");
@@ -242,17 +315,21 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProcesa)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(4, 4, 4)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnLimpiar)
                     .addComponent(btnProcesa))
-                .addGap(4, 4, 4))
+                .addGap(2, 2, 2))
         );
 
         jSplitPane1.setLeftComponent(jPanel3);
@@ -261,34 +338,83 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel6.setBackground(java.awt.SystemColor.control);
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("RESULTADO"));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RESULTADO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 1, 12))); // NOI18N
 
-        txtRespuesta.setColumns(20);
-        txtRespuesta.setRows(5);
-        jScrollPane2.setViewportView(txtRespuesta);
+        jPanel8.setBackground(java.awt.SystemColor.control);
+
+        jButtonWordWrapResultado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/word_wrap_20.png"))); // NOI18N
+        jButtonWordWrapResultado.setToolTipText("Ajustar Linea");
+        jButtonWordWrapResultado.setBorder(null);
+        jButtonWordWrapResultado.setFocusable(false);
+        jButtonWordWrapResultado.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonWordWrapResultado.setMaximumSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapResultado.setMinimumSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapResultado.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonWordWrapResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWordWrapResultadoActionPerformed(evt);
+            }
+        });
+
+        jComboBoxResultado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "text", "json", "xml" }));
+        jComboBoxResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxResultadoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jButtonWordWrapResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonWordWrapResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        txtResultado.setColumns(20);
+        txtResultado.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jScrollPane2.setViewportView(txtResultado);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel5);
@@ -311,12 +437,12 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addComponent(jLabelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(jSplitPane1)
                 .addGap(10, 10, 10))
         );
 
@@ -408,13 +534,13 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cbTipoPropertyChange
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        this.txtRespuesta.setText("");
-        this.txtValor.setText("");
+        this.txtResultado.setText("");
+        this.txtTexto.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnProcesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesaActionPerformed
         EncryptDecryptAction edu = new EncryptDecryptAction();
-        String valor = this.txtValor.getText();
+        String valor = this.txtTexto.getText();
         if (valor == null) {
             JOptionPane.showMessageDialog(this, "Texto de Entrada vac");
             return;
@@ -441,7 +567,7 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
                     } else {
                         res = edu.desencripta(clave, valor);
                     }
-                    this.txtRespuesta.setText(res);
+                    this.txtResultado.setText(res);
                     break;
                 case 1:
                     if (this.rbtEncrypt.isSelected()) {
@@ -449,7 +575,7 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
                     } else {
                         res = edu.desencripta(valor);
                     }
-                    this.txtRespuesta.setText(res);
+                    this.txtResultado.setText(res);
                     break;
                 case 2:
                     listOriginal = edu.listarTexto(valor, this.txtSep.getText().trim());
@@ -466,13 +592,13 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
             }
             if (!res.equals("")
                     && res.contains("*Error")) {
-                this.txtRespuesta.setText("");
+                this.txtResultado.setText("");
                 JOptionPane.showMessageDialog(this, res);
             }
         } else if (this.rbtEncode64.isSelected()) {
-            this.txtRespuesta.setText(edu.encode64(valor));
+            this.txtResultado.setText(edu.encode64(valor));
         } else if (this.rbtDecode64.isSelected()) {
-            this.txtRespuesta.setText(edu.decode64(valor));
+            this.txtResultado.setText(edu.decode64(valor));
         }
 
     }//GEN-LAST:event_btnProcesaActionPerformed
@@ -483,7 +609,7 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
             this.rbtDecrypt.setSelected(false);
             this.rbtDecode64.setSelected(false);
             this.txtClave.setEnabled(false);
-            
+
             this.jLabelTipo.setVisible(false);
             this.cbTipo.setEnabled(false);
             this.cbTipo.setVisible(false);
@@ -501,7 +627,7 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
             this.rbtDecrypt.setSelected(false);
             this.rbtEncode64.setSelected(false);
             this.txtClave.setEnabled(false);
-            
+
             this.jLabelTipo.setVisible(false);
             this.cbTipo.setEnabled(false);
             this.cbTipo.setVisible(false);
@@ -513,14 +639,123 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_rbtDecode64StateChanged
 
-    public void escribeResultado(List<Propiedad> lista) {
-        this.txtRespuesta.setText("");
+    private void jButtonWordWrapTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWordWrapTextoActionPerformed
+        //Border ctEmtDrdr = javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        //Border border = javax.swing.BorderFactory.createLineBorder(Color.BLUE);
+        if (!jButtonWordWrapTexto.isSelected()) {
+            jButtonWordWrapTexto.setSelected(true);
+            jButtonWordWrapTexto.setBackground(new java.awt.Color(96, 96, 96));
+            txtTexto.setLineWrap(true);
+        } else {
+            jButtonWordWrapTexto.setSelected(false);
+            jButtonWordWrapTexto.setBackground(new java.awt.Color(255, 255, 255));
+            txtTexto.setLineWrap(false);
+        }
+    }//GEN-LAST:event_jButtonWordWrapTextoActionPerformed
+
+    private void jButtonWordWrapResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWordWrapResultadoActionPerformed
+        //Border ctEmtDrdr = javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        //Border border = javax.swing.BorderFactory.createLineBorder(Color.BLUE);
+        if (!jButtonWordWrapResultado.isSelected()) {
+            jButtonWordWrapResultado.setSelected(true);
+            jButtonWordWrapResultado.setBackground(new java.awt.Color(96, 96, 96));
+            txtResultado.setLineWrap(true);
+        } else {
+            jButtonWordWrapResultado.setSelected(false);
+            jButtonWordWrapResultado.setBackground(new java.awt.Color(255, 255, 255));
+            txtResultado.setLineWrap(false);
+        }
+    }//GEN-LAST:event_jButtonWordWrapResultadoActionPerformed
+
+    private void jComboBoxTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTextoActionPerformed
+        if (jComboBoxTexto.getSelectedIndex() == 1) {
+            txtTexto.setText(prettyPrintJSON(txtTexto.getText()));
+        } else if (jComboBoxTexto.getSelectedIndex() == 2) {
+            txtTexto.setText(prettyPrintXML(txtTexto.getText(), 4, true));
+        }
+    }//GEN-LAST:event_jComboBoxTextoActionPerformed
+
+    private void jComboBoxResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxResultadoActionPerformed
+        if (jComboBoxResultado.getSelectedIndex() == 1) {
+            txtResultado.setText(prettyPrintJSON(txtResultado.getText()));
+        } else if (jComboBoxResultado.getSelectedIndex() == 2) {
+            txtResultado.setText(prettyPrintXML(txtResultado.getText(), 4, true));
+        }
+    }//GEN-LAST:event_jComboBoxResultadoActionPerformed
+
+    private String prettyPrintJSON(String strJson) {
+        if (strJson == null || strJson.isBlank()) {
+            strJson = "";
+        } else {
+            try {
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                JsonElement jsonElement = JsonParser.parseString(strJson);
+                String prettyJsonString = gson.toJson(jsonElement);
+                return prettyJsonString;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al intentar dar formato JSON al texto proporcionado");
+            }
+        }
+        return strJson;
+    }
+
+    public String prettyPrintXML2(String strXml, int indent, boolean ignoreDeclaration) {
+        if (strXml == null || strXml.isBlank()) {
+            strXml = "";
+        } else {
+
+            try {
+                InputSource src = new InputSource(new StringReader(strXml));
+                Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src);
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                transformerFactory.setAttribute("indent-number", indent);
+                Transformer transformer = transformerFactory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, ignoreDeclaration ? "yes" : "no");
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+                Writer out = new StringWriter();
+                transformer.transform(new DOMSource(document), new StreamResult(out));
+                return out.toString();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al intentar dar formato XML al texto proporcionado");
+                //throw new RuntimeException("Error occurs when pretty-printing xml:\n" + strXml, e);
+            }
+        }
+        return strXml;
+    }
+
+    public String prettyPrintXML(String strXml, int indent, boolean skipDeclaration) {
+        if (strXml == null || strXml.isBlank()) {
+            strXml = "";
+        } else {
+            try {
+                OutputFormat format = OutputFormat.createPrettyPrint();
+                format.setIndentSize(indent);
+                format.setSuppressDeclaration(skipDeclaration);
+                format.setEncoding("UTF-8");
+                org.dom4j.Document document = DocumentHelper.parseText(strXml);
+                StringWriter sw = new StringWriter();
+                XMLWriter writer = new XMLWriter(sw, format);
+                writer.write(document);
+                return sw.toString();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al intentar dar formato XML al texto proporcionado");
+                //throw new RuntimeException("Error occurs when pretty-printing xml:\n" + strXml, e);
+            }
+        }
+        return strXml;
+    }
+
+    private void escribeResultado(List<Propiedad> lista) {
+        this.txtResultado.setText("");
         for (Propiedad propiedad : lista) {
-            this.txtRespuesta.append(propiedad.toString() + "\n");
+            this.txtResultado.append(propiedad.toString() + "\n");
         }
     }
 
-    public void copyClipboard(String copyText) {
+    private void copyClipboard(String copyText) {
         StringSelection ss = new StringSelection(copyText);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
     }
@@ -529,6 +764,10 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnProcesa;
     private javax.swing.JComboBox<String> cbTipo;
+    private javax.swing.JButton jButtonWordWrapResultado;
+    private javax.swing.JButton jButtonWordWrapTexto;
+    private javax.swing.JComboBox<String> jComboBoxResultado;
+    private javax.swing.JComboBox<String> jComboBoxTexto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelSeparador;
@@ -540,6 +779,8 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -550,8 +791,8 @@ public class TabcustomEDJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbtEncode64;
     private javax.swing.JRadioButton rbtEncrypt;
     private javax.swing.JTextField txtClave;
-    private javax.swing.JTextArea txtRespuesta;
+    private javax.swing.JTextArea txtResultado;
     private javax.swing.JTextField txtSep;
-    private javax.swing.JTextArea txtValor;
+    private javax.swing.JTextArea txtTexto;
     // End of variables declaration//GEN-END:variables
 }
